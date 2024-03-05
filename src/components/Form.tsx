@@ -1,4 +1,8 @@
-function Form() {
+type FormProps = {
+  handleClick: ()=> void
+};
+
+function Form({ handleClick }:FormProps) {
   return (
     <>
       <label htmlFor="service-name">Nome do serviço</label>
@@ -14,7 +18,7 @@ function Form() {
       <input type="text" name="URL" id="URL" />
 
       <button type="submit">Cadastrar</button>
-      <button type="button">Cancelar</button>
+      <button type="button" onClick={ handleClick }>Cancelar</button>
     </>
   );
 }
