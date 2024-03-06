@@ -2,7 +2,6 @@ import { useState } from 'react';
 import './App.css';
 import Form from './components/Form';
 import Title from './components/Title';
-import Password from './components/Password';
 
 function App() {
   const [toggleForm, setToggleForm] = useState(false);
