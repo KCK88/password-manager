@@ -10,7 +10,6 @@ function Form({ handleClick }:FormProps) {
     login: '',
     password: '',
   });
-  const [a, setA] = useState();
 
   const validateForm = () => {
     const hasSpecial = /[!@#$%^&*(),.?":{}|<>]+/;
