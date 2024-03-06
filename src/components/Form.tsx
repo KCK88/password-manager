@@ -10,6 +10,7 @@ function Form({ handleClick }:FormProps) {
     login: '',
     password: '',
   });
+  const [a, setA] = useState();
 
   const validateForm = () => {
     const hasSpecial = /[!@#$%^&*(),.?":{}|<>]+/;
@@ -25,6 +26,21 @@ function Form({ handleClick }:FormProps) {
       && testLetter && !!data.login && !!data.serviceName;
   };
 
+  const validatePassword = () => {
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]+/;
+    const testSpecial = hasSpecial.test(data.password);
+    const hasAny = /\d/;
+    const testAny = hasAny.test(data.password);
+    const hasLetter = /[a-zA-Z]/;
+    const testLetter = hasLetter.test(data.password);
+
+    return {
+      testSpecial,
+      testAny,
+      testLetter,
+    };
+  };
+
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => {
@@ -34,7 +50,8 @@ function Form({ handleClick }:FormProps) {
       [name]: value,
     });
   };
-
+  const validCheck = 'valid-password-check';
+  const invalidCheck = 'invalid-password-check';
   return (
     <>
       <label htmlFor="service-name">Nome do serviço</label>
@@ -69,6 +86,32 @@ function Form({ handleClick }:FormProps) {
 
       <button type="submit" disabled={ !validateForm() }>Cadastrar</button>
       <button type="button" onClick={ handleClick }>Cancelar</button>
+
+      <div>
+
+        <p
+          className={ data.password.length > 8 ? validCheck : invalidCheck }
+        >
+          Possuir 8 ou mais caracteres
+        </p>
+        <p
+          className={ data.password.length < 16 ? validCheck : invalidCheck }
+        >
+          Possuir até 16 caracteres
+        </p>
+        <p
+          className={ (validatePassword().testAny && validatePassword().testLetter)
+            ? validCheck : invalidCheck }
+        >
+          Possuir letras e números
+        </p>
+        <p
+          className={ validatePassword().testSpecial ? validCheck : invalidCheck }
+        >
+          Possuir algum caractere especial
+        </p>
+
+      </div>
     </>
   );
 }
